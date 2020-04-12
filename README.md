@@ -2,14 +2,14 @@
 Programrendszerek Fejlesztése projektmunka
 
 ## Backend:
-  Node.js REST API
-  MongoDB Database
+  Node.js REST API <br/>
+  MongoDB Database <br/>
 
-Requirements:
-  Node.js
-  Npm
+Requirements: <br/>
+  Node.js <br/>
+  Npm <br/>
   
-How to run:
-  Create .env from .env.example
-  Run npm install
-  Run npm start
+How to run: <br/>
+  Create .env from .env.example <br/>
+  Run npm install <br/>
+  Run npm start <br/>
