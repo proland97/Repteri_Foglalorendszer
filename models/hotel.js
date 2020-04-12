@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const hotelSchema = new Schema({
     name: {
         type: String,
+        unique: true,
         required: true
     },
     owner: {

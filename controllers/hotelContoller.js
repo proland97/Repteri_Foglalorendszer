@@ -21,6 +21,16 @@ exports.getHotel = async(req, res) => {
     res.send(result);
 }
 
+exports.getHotelbyName = async(req, res) => {
+    let result;
+    try {
+        result = Hotel.find({ name: req.params.hotelName });
+    } catch (err) {
+        res.send(err);
+    }
+    res.send(result);
+}
+
 exports.addHotel = async(req, res) => {
 
     const hotel = new Hotel({

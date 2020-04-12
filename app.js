@@ -12,6 +12,7 @@ const errorController = require('./controllers/errorController');
 const authRoutes = require('./routes/auth');
 const hotelRoutes = require('./routes/hotel');
 const ratingRoutes = require('./routes/rating');
+const reservationRoutes = require('./routes/reservation');
 
 
 dotenv.config();
@@ -38,10 +39,14 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+//ROUTES
 app.use('/hotel', hotelRoutes);
 app.use('/ratings', ratingRoutes);
+app.use('/reservations', reservationRoutes);
 app.use('/', authRoutes);
 app.use(errorController.get404);
+//ROUTES
 
 mongoose.connect(
         `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@repterifoglalorendszerdb-9vj3r.mongodb.net/ForlalorendszerDB?retryWrites=true&w=majority`, {
