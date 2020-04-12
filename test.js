@@ -1,32 +1,5 @@
 const moment = require('moment');
 
-let a = new Date('2020-08-09')
-let b = new Date('2020-08-09')
-
-let c = new Date('2020-08-09')
-let d = new Date('2020-08-15')
-
-
-const createDate = (year, month, day) => {
-
-    let correctDay = ''
-    if (day < 10) {
-        correctDay = '0' + day;
-    } else {
-        correctDay = '' + day;
-    }
-
-    let correctMonth = ''
-    if (month < 10) {
-        correctMonth = '0' + month;
-    } else {
-        correctMonth = '' + month;
-    }
-
-    date = new Date(`${year}-${correctMonth}-${correctDay}`)
-    return date;
-}
-
 const isFree = (date1Start, date1End, date2Start, date2End) => {
 
     if (date2Start >= date1Start && date2Start <= date1End) {
@@ -39,7 +12,28 @@ const isFree = (date1Start, date1End, date2Start, date2End) => {
 }
 
 
-//console.log(new Date().toDateString());
+convertToValidDate = (date) => {
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
 
-console.log(new Date(Date.now()));
-console.log(new Date(Date.now() + 3600000));
+}
+
+/*
+let x = new Date(2020, 8, 8);
+let a = new Date(2020, 8, 8);
+//console.log(x);
+convertToValidDate(x);
+//console.log(x);
+//console.log(x.toDateString());
+
+//console.log(moment().format())
+
+//console.log(moment('2020-07-24').format());
+
+console.log(moment(a).format('ll'));
+*/
+
+const arr = []
+
+const a = arr[0];
+
+console.log(a);

@@ -1,4 +1,6 @@
+const { validationResult } = require('express-validator');
 const Hotel = require('../models/hotel');
+
 
 exports.getHotels = async(req, res) => {
 
@@ -6,7 +8,7 @@ exports.getHotels = async(req, res) => {
     try {
         result = await Hotel.find();
     } catch (err) {
-        res.send(err);
+        return res.status(400).send(err)
     }
     res.send(result);
 }
@@ -16,7 +18,7 @@ exports.getHotel = async(req, res) => {
     try {
         result = Hotel.findById(req.params.hotelId);
     } catch (err) {
-        res.send(err);
+        return res.status(400).send(err)
     }
     res.send(result);
 }
@@ -26,12 +28,20 @@ exports.getHotelbyName = async(req, res) => {
     try {
         result = Hotel.find({ name: req.params.hotelName });
     } catch (err) {
-        res.send(err);
+        return res.status(400).send(err)
     }
     res.send(result);
 }
 
 exports.addHotel = async(req, res) => {
+
+    //Error handling
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+
+        errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
+        return res.status(422).send({ errorMessages: errorMassageArray });
+    }
 
     const hotel = new Hotel({
         name: req.body.name,
@@ -46,7 +56,7 @@ exports.addHotel = async(req, res) => {
     try {
         result = await hotel.save();
     } catch (err) {
-        res.send(err);
+        return res.status(400).send(err)
     }
     res.send({ msg: 'Hotel created successfully!' })
 }
@@ -68,12 +78,20 @@ exports.editHotel = async(req, res) => {
         result = await hotel.save();
 
     } catch (err) {
-        res.send(err);
+        return res.status(400).send(err)
     }
     res.send({ msg: 'Hotel updated successfully' });
 }
 
 exports.deleteHotel = async(req, res) => {
+
+    //Error handling
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+
+        errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
+        return res.status(422).send({ errorMessages: errorMassageArray });
+    }
 
     let hotel;
     let result;
@@ -81,7 +99,7 @@ exports.deleteHotel = async(req, res) => {
         hotel = await Hotel.findById(req.body.hotelId);
         result = await hotel.delete();
     } catch (err) {
-        console.log(err);
+        return res.status(400).send(err)
     }
     res.send({ msg: 'Hotel deleted successfully' });
 }

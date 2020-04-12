@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
+const { validationResult } = require('express-validator');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const Hotel = require('../models/hotel');
 const User = require('../models/user');
@@ -14,6 +15,14 @@ dotenv.config();
 
 exports.reservation = async(req, res) => {
 
+    //Error handling
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+
+        errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
+        return res.status(422).send({ errorMessages: errorMassageArray });
+    }
+
     let hotel;
     let result;
     let user;
@@ -22,24 +31,6 @@ exports.reservation = async(req, res) => {
         hotel = await Hotel.findOne({ name: req.body.hotelName })
     } catch (err) {
         return res.status(400).send(err)
-    }
-
-    if (!hotel) {
-        return res.status(400).send({ msg: 'There is no hotel with this name!' })
-    }
-
-    if (hotel.freeRooms == 0) {
-        return res.status(400).send({ msg: 'No free rooms in this Hotel!' })
-    }
-
-    const room = hotel.rooms.filter(room => room.roomNumber == req.body.roomNumber);
-
-    if (room.length === 0) {
-        return res.status(400).send({ msg: 'There is no room number is this hotel!' })
-    }
-
-    if (!room[0].isFree) {
-        return res.status(400).send({ msg: 'This room is not free!' })
     }
 
     hotel.freeRooms--;
@@ -52,7 +43,7 @@ exports.reservation = async(req, res) => {
     try {
         result = await hotel.save()
     } catch (err) {
-        return res.send(err);
+        return res.status(400).send(err);
     }
 
     try {
@@ -61,11 +52,11 @@ exports.reservation = async(req, res) => {
         user.reservations.push(newReservation);
         result = await user.save();
     } catch (err) {
-        return res.send(err);
+        return res.status(400).send(err);
     }
 
-    res.send({ msg: 'Reservation successful!' });
-    sendEmail(req.session.passport.user.email, req.body.hotelName, req.body.roomNumber);
+    res.status(200).send({ msg: 'Reservation successful!' });
+    //sendEmail(req.session.passport.user.email, req.body.hotelName, req.body.roomNumber);
 }
 
 exports.myReservation = async(req, res) => {
@@ -74,9 +65,9 @@ exports.myReservation = async(req, res) => {
     try {
         user = await User.findById(req.session.passport.user._id);
     } catch (err) {
-        return res.send(err)
+        return res.status(400).send(err);
     }
-    res.send(user.reservations);
+    res.status(200).send(user.reservations);
 }
 
 
