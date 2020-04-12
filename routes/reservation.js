@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.post('/reservation', check.isAuth, reservationContoller.reservation);
 
+router.get('/myreservation', check.isAuth, reservationContoller.myReservation);
+
 module.exports = router;

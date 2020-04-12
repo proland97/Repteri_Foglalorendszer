@@ -2,6 +2,8 @@ const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const Hotel = require('../models/hotel');
+const User = require('../models/user');
+
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
@@ -14,6 +16,7 @@ exports.reservation = async(req, res) => {
 
     let hotel;
     let result;
+    let user;
 
     try {
         hotel = await Hotel.findOne({ name: req.body.hotelName })
@@ -52,9 +55,30 @@ exports.reservation = async(req, res) => {
         return res.send(err);
     }
 
+    try {
+        user = await User.findById(req.session.passport.user._id);
+        const newReservation = { hotelName: req.body.hotelName, roomNumber: req.body.roomNumber }
+        user.reservations.push(newReservation);
+        result = await user.save();
+    } catch (err) {
+        return res.send(err);
+    }
+
     res.send({ msg: 'Reservation successful!' });
     sendEmail(req.session.passport.user.email, req.body.hotelName, req.body.roomNumber);
 }
+
+exports.myReservation = async(req, res) => {
+
+    let user;
+    try {
+        user = await User.findById(req.session.passport.user._id);
+    } catch (err) {
+        return res.send(err)
+    }
+    res.send(user.reservations);
+}
+
 
 sendEmail = async(email, hotelName, roomNumber) => {
     try {
