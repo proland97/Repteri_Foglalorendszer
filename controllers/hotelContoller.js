@@ -49,8 +49,7 @@ exports.addHotel = async(req, res) => {
         owner: req.body.owner,
         ratings: [],
         freeRooms: req.body.freeRooms,
-        rooms: req.body.rooms,
-        imagePath: ''
+        rooms: req.body.rooms
     });
 
     let result;
