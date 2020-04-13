@@ -23,7 +23,8 @@ const hotelSchema = new Schema({
     rooms: [{
         roomNumber: Number,
         numberOfBeds: Number,
-        isFree: Boolean
+        isFree: Boolean,
+        imagePath: String
     }],
     imagePath: {
         type: String

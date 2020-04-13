@@ -51,4 +51,21 @@ router.post('/uploadhotelimage',
     }),
     hotelContoller.uploadHotelImage);
 
+router.post('/uploadroomimage', check.isAdmin,
+    upload.single('hotelImage'),
+    body('hotelName')
+    .custom(async(value, { req }) => {
+        const hotel = await Hotel.findOne({ name: value });
+        if (!hotel) {
+            throw new Error('Hotel does not exist!');
+        }
+        const rooms = hotel.rooms.filter(room => room.roomNumber == req.body.roomNumber);
+        room = rooms[0];
+        if (!room) {
+            throw new Error('There is no room number is this hotel!');
+        }
+        return true;
+    }),
+    hotelContoller.uploadRoomImage)
+
 module.exports = router;

@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const fs = require('fs');
+const upload = require('../middleware/upload');
 const Hotel = require('../models/hotel');
 
 exports.getHotels = async(req, res) => {
@@ -133,7 +134,42 @@ exports.uploadHotelImage = async(req, res) => {
         return res.status(400).send(err)
     }
 
-    res.send({ msg: 'Uploaded!' })
+    res.send({ msg: 'Hotel image uploaded!' })
+}
+
+exports.uploadRoomImage = async(req, res) => {
+
+    //Error handling
+    if (req.extensionError) {
+        return res.status(422).send({ msg: req.extensionError })
+    }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+
+        fs.unlinkSync(req.file.path);
+        errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
+        return res.status(422).send({ errorMessages: errorMassageArray });
+    }
+
+    let hotel;
+    try {
+        hotel = await Hotel.findOne({ name: req.body.hotelName });
+    } catch (err) {
+        return res.status(400).send(err)
+    }
+    hotel.rooms.forEach(room => {
+        if (room.roomNumber == req.body.roomNumber) {
+            room.imagePath = 'http://localhost:3000/' + req.file.path;
+        }
+    });
+
+    try {
+        await hotel.save();
+    } catch (err) {
+        return res.status(400).send(err)
+    }
+
+    res.send({ msg: 'Room image uploaded!' })
 }
 
 //TODO 

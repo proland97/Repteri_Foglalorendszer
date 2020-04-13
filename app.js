@@ -40,7 +40,6 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 //ROUTES
 app.use('/hotel', hotelRoutes);
 app.use('/ratings', ratingRoutes);
