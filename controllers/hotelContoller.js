@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const fs = require('fs');
 const Hotel = require('../models/hotel');
 
 exports.getHotels = async(req, res) => {
@@ -47,7 +48,8 @@ exports.addHotel = async(req, res) => {
         owner: req.body.owner,
         ratings: [],
         freeRooms: req.body.freeRooms,
-        rooms: req.body.rooms
+        rooms: req.body.rooms,
+        imagePath: ''
     });
 
     let result;
@@ -103,18 +105,39 @@ exports.deleteHotel = async(req, res) => {
     res.send({ msg: 'Hotel deleted successfully' });
 }
 
-exports.uploadFile = async(req, res) => {
+exports.uploadHotelImage = async(req, res) => {
 
+    //Error handling
     if (req.extensionError) {
         return res.status(422).send({ msg: req.extensionError })
     }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
 
-    //console.log(req.body.hotelName);
+        fs.unlinkSync(req.file.path);
+        errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
+        return res.status(422).send({ errorMessages: errorMassageArray });
+    }
 
-    //TODO 
-    //store image path in Database
-    //get images throw hotels
-    //multiple image upload
+    let hotel;
+    try {
+        hotel = await Hotel.findOne({ name: req.body.hotelName });
+    } catch (err) {
+        return res.status(400).send(err)
+    }
+
+    hotel.imagePath = 'http://localhost:3000/' + req.file.path;
+    try {
+        await hotel.save();
+    } catch (err) {
+        return res.status(400).send(err)
+    }
 
     res.send({ msg: 'Uploaded!' })
 }
+
+//TODO 
+
+//add images to rooms
+//remove images
+//store image path in Database

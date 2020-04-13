@@ -24,6 +24,7 @@ const sessionStore = new MongoDBStore({
     cookie: { expires: new Date(Date.now() + 3600000) }
 })
 
+app.use('/images', express.static('images'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

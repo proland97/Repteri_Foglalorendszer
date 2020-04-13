@@ -6,6 +6,7 @@ const Hotel = require('../models/hotel');
 const router = express.Router();
 
 router.post('/rate',
+    check.isAuth,
     body('hotelName').custom(async(value, { req }) => {
         const hotel = await Hotel.findOne({ name: value });
         if (!hotel) {
@@ -13,6 +14,6 @@ router.post('/rate',
         }
         return true;
     }),
-    check.isAuth, ratingContoller.rate);
+    ratingContoller.rate);
 
 module.exports = router;

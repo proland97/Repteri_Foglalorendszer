@@ -6,6 +6,7 @@ const Hotel = require('../models/hotel');
 const router = express.Router();
 
 router.post('/reservation',
+    check.isAuth,
     body('hotelName').custom(async(value, { req }) => {
         const hotel = await Hotel.findOne({ name: value });
         if (!hotel) {
@@ -23,7 +24,7 @@ router.post('/reservation',
             throw new Error('This room is not free!');
         }
         return true;
-    }), check.isAuth, reservationContoller.reservation);
+    }), reservationContoller.reservation);
 
 router.get('/myreservation', check.isAuth, reservationContoller.myReservation);
 

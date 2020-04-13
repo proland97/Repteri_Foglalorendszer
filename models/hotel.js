@@ -24,7 +24,10 @@ const hotelSchema = new Schema({
         roomNumber: Number,
         numberOfBeds: Number,
         isFree: Boolean
-    }]
+    }],
+    imagePath: {
+        type: String
+    }
 
 });
 

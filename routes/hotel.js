@@ -13,6 +13,7 @@ router.get('/hotel/:hotelId', check.isAuth, hotelContoller.getHotel);
 router.get('/hotelbyname/:hotelName', check.isAuth, hotelContoller.getHotelbyName);
 
 router.post('/add-hotel',
+    check.isAdmin,
     body('name')
     .custom(async(value, { req }) => {
         const hotel = await Hotel.findOne({ name: value })
@@ -21,11 +22,12 @@ router.post('/add-hotel',
         }
         return true;
     }),
-    check.isAdmin, hotelContoller.addHotel);
+    hotelContoller.addHotel);
 
 router.post('/edit-hotel', check.isAdmin, hotelContoller.editHotel);
 
 router.post('/delete-hotel',
+    check.isAdmin,
     body('hotelId')
     .custom(async(value, { req }) => {
         const hotel = await Hotel.findById(value);
@@ -34,8 +36,19 @@ router.post('/delete-hotel',
         }
         return true;
     }),
-    check.isAdmin, hotelContoller.deleteHotel);
+    hotelContoller.deleteHotel);
 
-router.post('/upload', check.isAdmin, upload.single('hotelImage'), hotelContoller.uploadFile);
+router.post('/uploadhotelimage',
+    check.isAdmin,
+    upload.single('hotelImage'),
+    body('hotelName')
+    .custom(async(value, { req }) => {
+        const hotel = await Hotel.findOne({ name: value });
+        if (!hotel) {
+            throw new Error('Hotel does not exist!');
+        }
+        return true;
+    }),
+    hotelContoller.uploadHotelImage);
 
 module.exports = router;
