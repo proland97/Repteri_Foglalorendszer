@@ -1,7 +1,6 @@
 const { validationResult } = require('express-validator');
 const Hotel = require('../models/hotel');
 
-
 exports.getHotels = async(req, res) => {
 
     let result;
@@ -104,10 +103,18 @@ exports.deleteHotel = async(req, res) => {
     res.send({ msg: 'Hotel deleted successfully' });
 }
 
+exports.uploadFile = async(req, res) => {
 
+    if (req.extensionError) {
+        return res.status(422).send({ msg: req.extensionError })
+    }
 
+    //console.log(req.body.hotelName);
 
-//TODO
-//update
-//delete
-//postman bekonfiguralni
+    //TODO 
+    //store image path in Database
+    //get images throw hotels
+    //multiple image upload
+
+    res.send({ msg: 'Uploaded!' })
+}

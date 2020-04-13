@@ -1,6 +1,7 @@
 const express = require('express');
 const hotelContoller = require('../controllers/hotelContoller');
 const check = require('../middleware/is-auth');
+const upload = require('../middleware/upload');
 const { body } = require('express-validator');
 const Hotel = require('../models/hotel');
 const router = express.Router();
@@ -34,5 +35,7 @@ router.post('/delete-hotel',
         return true;
     }),
     check.isAdmin, hotelContoller.deleteHotel);
+
+router.post('/upload', check.isAdmin, upload.single('hotelImage'), hotelContoller.uploadFile);
 
 module.exports = router;

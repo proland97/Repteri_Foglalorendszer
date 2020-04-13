@@ -11,29 +11,24 @@ const isFree = (date1Start, date1End, date2Start, date2End) => {
     return true;
 }
 
-
 convertToValidDate = (date) => {
-    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
 
-}
+    }
+    /*
+    let x = new Date(2020, 8, 8);
+    let a = new Date(2020, 8, 8);
+    //console.log(x);
+    convertToValidDate(x);
+    //console.log(x);
+    //console.log(x.toDateString());
 
-/*
-let x = new Date(2020, 8, 8);
-let a = new Date(2020, 8, 8);
-//console.log(x);
-convertToValidDate(x);
-//console.log(x);
-//console.log(x.toDateString());
+    //TODO
+    //toISOSring
 
-//console.log(moment().format())
+    //console.log(moment().format())
 
-//console.log(moment('2020-07-24').format());
+    //console.log(moment('2020-07-24').format());
 
-console.log(moment(a).format('ll'));
-*/
-
-const arr = []
-
-const a = arr[0];
-
-console.log(a);
+    console.log(moment(a).format('ll'));
+    */
