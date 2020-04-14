@@ -68,4 +68,33 @@ router.post('/uploadroomimage', check.isAdmin,
     }),
     hotelContoller.uploadRoomImage)
 
+router.post('/deletehotelimages',
+    check.isAdmin,
+    body('hotelName')
+    .custom(async(value, { req }) => {
+        const hotel = await Hotel.findOne({ name: value });
+        if (!hotel) {
+            throw new Error('Hotel does not exist!');
+        }
+        return true;
+    }),
+    hotelContoller.deleteHotelImages);
+
+router.post('/deleteroomimages',
+    check.isAdmin,
+    body('hotelName')
+    .custom(async(value, { req }) => {
+        const hotel = await Hotel.findOne({ name: value });
+        if (!hotel) {
+            throw new Error('Hotel does not exist!');
+        }
+        const rooms = hotel.rooms.filter(room => room.roomNumber == req.body.roomNumber);
+        room = rooms[0];
+        if (!room) {
+            throw new Error('There is no room number is this hotel!');
+        }
+        return true;
+    }),
+    hotelContoller.deleteRoomImages);
+
 module.exports = router;

@@ -49,8 +49,10 @@ exports.addHotel = async(req, res) => {
         owner: req.body.owner,
         ratings: [],
         freeRooms: req.body.freeRooms,
-        rooms: req.body.rooms
+        rooms: req.body.rooms,
+        images: []
     });
+    hotel.images = [];
 
     let result;
 
@@ -126,7 +128,7 @@ exports.uploadHotelImage = async(req, res) => {
         return res.status(400).send(err)
     }
 
-    hotel.imagePath = 'http://localhost:3000/' + req.file.path;
+    hotel.images.push({ imagePath: `http://localhost:3000/${req.file.path}` });
     try {
         await hotel.save();
     } catch (err) {
@@ -158,7 +160,7 @@ exports.uploadRoomImage = async(req, res) => {
     }
     hotel.rooms.forEach(room => {
         if (room.roomNumber == req.body.roomNumber) {
-            room.imagePath = 'http://localhost:3000/' + req.file.path;
+            room.images.push({ imagePath: `http://localhost:3000/${req.file.path}` })
         }
     });
 
@@ -171,8 +173,71 @@ exports.uploadRoomImage = async(req, res) => {
     res.send({ msg: 'Room image uploaded!' })
 }
 
-//TODO 
+exports.deleteHotelImages = async(req, res) => {
 
-//add images to rooms
-//remove images
-//store image path in Database
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+
+        errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
+        return res.status(422).send({ errorMessages: errorMassageArray });
+    }
+
+    let hotel;
+    try {
+        hotel = await Hotel.findOne({ name: req.body.hotelName });
+    } catch (err) {
+        return res.status(400).send(err)
+    }
+
+    //Deleting hotel images from server, and clean database link
+    hotel.images.forEach(image => {
+        arr = image.imagePath.split('http://localhost:3000/');
+        fs.unlinkSync(arr[1]);
+    });
+    hotel.images = [];
+
+    try {
+        await hotel.save();
+    } catch (err) {
+        return res.status(400).send(err)
+    }
+
+    res.send({ msg: 'Hotel images deleted!' })
+}
+
+exports.deleteRoomImages = async(req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+
+        errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
+        return res.status(422).send({ errorMessages: errorMassageArray });
+    }
+
+    let hotel;
+    try {
+        hotel = await Hotel.findOne({ name: req.body.hotelName });
+    } catch (err) {
+        return res.status(400).send(err)
+    }
+
+    //Deleting room images from server, and clean database link
+    hotel.rooms.forEach(room => {
+        if (room.roomNumber == req.body.roomNumber) {
+            room.images.forEach(img => {
+                arr = img.imagePath.split('http://localhost:3000/');
+                fs.unlinkSync(arr[1]);
+            })
+            room.images = [];
+        }
+    });
+
+    try {
+        await hotel.save();
+    } catch (err) {
+        return res.status(400).send(err)
+    }
+    res.send({ msg: 'Room images deleted!' })
+}
+
+//TODO 
+//Delete hotel and room images by name
