@@ -7,11 +7,11 @@ passport.use('local', new localStrategy((username, password, done) => {
         if (err) return done('There was an error while retrieving the user');
         if (user) {
             user.comparePasswords(password, function(error, isMatch) {
-                if (error || !isMatch) return done({ msg: 'Wrong password' });
+                if (error || !isMatch) return done({ sucess: false, msg: 'Wrong password' });
                 return done(null, user);
             })
         } else {
-            return done({ msg: 'There is no registered user with that username' });
+            return done({ sucess: false, msg: 'There is no registered user with that username' });
         }
     })
 }));

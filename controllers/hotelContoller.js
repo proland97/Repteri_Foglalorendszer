@@ -41,7 +41,7 @@ exports.addHotel = async(req, res) => {
     if (!errors.isEmpty()) {
 
         errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
-        return res.status(422).send({ errorMessages: errorMassageArray });
+        return res.status(422).send({ sucess: false, errorMessages: errorMassageArray });
     }
 
     const hotel = new Hotel({
@@ -61,7 +61,7 @@ exports.addHotel = async(req, res) => {
     } catch (err) {
         return res.status(400).send(err)
     }
-    res.send({ msg: 'Hotel created successfully!' })
+    res.send({ sucess: true, msg: 'Hotel created successfully!' })
 }
 
 exports.editHotel = async(req, res) => {
@@ -83,7 +83,7 @@ exports.editHotel = async(req, res) => {
     } catch (err) {
         return res.status(400).send(err)
     }
-    res.send({ msg: 'Hotel updated successfully' });
+    res.send({ sucess: true, msg: 'Hotel updated successfully' });
 }
 
 exports.deleteHotel = async(req, res) => {
@@ -93,7 +93,7 @@ exports.deleteHotel = async(req, res) => {
     if (!errors.isEmpty()) {
 
         errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
-        return res.status(422).send({ errorMessages: errorMassageArray });
+        return res.status(422).send({ sucess: false, errorMessages: errorMassageArray });
     }
 
     let hotel;
@@ -104,21 +104,21 @@ exports.deleteHotel = async(req, res) => {
     } catch (err) {
         return res.status(400).send(err)
     }
-    res.send({ msg: 'Hotel deleted successfully' });
+    res.send({ sucess: true, msg: 'Hotel deleted successfully' });
 }
 
 exports.uploadHotelImage = async(req, res) => {
 
     //Error handling
     if (req.extensionError) {
-        return res.status(422).send({ msg: req.extensionError })
+        return res.status(422).send({ sucess: false, msg: req.extensionError })
     }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
 
         fs.unlinkSync(req.file.path);
         errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
-        return res.status(422).send({ errorMessages: errorMassageArray });
+        return res.status(422).send({ sucess: false, errorMessages: errorMassageArray });
     }
 
     let hotel;
@@ -135,21 +135,21 @@ exports.uploadHotelImage = async(req, res) => {
         return res.status(400).send(err)
     }
 
-    res.send({ msg: 'Hotel image uploaded!' })
+    res.send({ sucess: true, msg: 'Hotel image uploaded!' })
 }
 
 exports.uploadRoomImage = async(req, res) => {
 
     //Error handling
     if (req.extensionError) {
-        return res.status(422).send({ msg: req.extensionError })
+        return res.status(422).send({ sucess: false, msg: req.extensionError })
     }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
 
         fs.unlinkSync(req.file.path);
         errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
-        return res.status(422).send({ errorMessages: errorMassageArray });
+        return res.status(422).send({ sucess: false, errorMessages: errorMassageArray });
     }
 
     let hotel;
@@ -170,7 +170,7 @@ exports.uploadRoomImage = async(req, res) => {
         return res.status(400).send(err)
     }
 
-    res.send({ msg: 'Room image uploaded!' })
+    res.send({ sucess: true, msg: 'Room image uploaded!' })
 }
 
 exports.deleteHotelImages = async(req, res) => {
@@ -179,7 +179,7 @@ exports.deleteHotelImages = async(req, res) => {
     if (!errors.isEmpty()) {
 
         errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
-        return res.status(422).send({ errorMessages: errorMassageArray });
+        return res.status(422).send({ sucess: false, errorMessages: errorMassageArray });
     }
 
     let hotel;
@@ -202,7 +202,7 @@ exports.deleteHotelImages = async(req, res) => {
         return res.status(400).send(err)
     }
 
-    res.send({ msg: 'Hotel images deleted!' })
+    res.send({ sucess: true, msg: 'Hotel images deleted!' })
 }
 
 exports.deleteRoomImages = async(req, res) => {
@@ -210,7 +210,7 @@ exports.deleteRoomImages = async(req, res) => {
     if (!errors.isEmpty()) {
 
         errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
-        return res.status(422).send({ errorMessages: errorMassageArray });
+        return res.status(422).send({ sucess: false, errorMessages: errorMassageArray });
     }
 
     let hotel;
@@ -236,7 +236,7 @@ exports.deleteRoomImages = async(req, res) => {
     } catch (err) {
         return res.status(400).send(err)
     }
-    res.send({ msg: 'Room images deleted!' })
+    res.send({ sucess: true, msg: 'Room images deleted!' })
 }
 
 //TODO 

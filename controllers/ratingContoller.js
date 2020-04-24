@@ -9,7 +9,7 @@ exports.rate = async(req, res) => {
     if (!errors.isEmpty()) {
 
         errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
-        return res.status(422).send({ errorMessages: errorMassageArray });
+        return res.status(422).send({ sucess: false, errorMessages: errorMassageArray });
     }
 
     let hotel;
@@ -27,5 +27,5 @@ exports.rate = async(req, res) => {
         return res.status(400).send(err)
     }
 
-    res.send({ msg: 'Rating successfull!' });
+    res.send({ sucess: true, msg: 'Rating successfull!' });
 }

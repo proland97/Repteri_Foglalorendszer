@@ -19,7 +19,7 @@ exports.registration = async(req, res, next) => {
     if (!errors.isEmpty()) {
 
         errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
-        return res.status(422).send({ errorMessages: errorMassageArray });
+        return res.status(422).send({ sucess: false, errorMessages: errorMassageArray });
     }
 
     let role
@@ -39,7 +39,7 @@ exports.registration = async(req, res, next) => {
 
     try {
         await user.save();
-        res.status(200).send({ msg: 'Registration was successful!' });
+        res.status(200).send({ sucess: true, msg: 'Registration was successful!' });
         await sendEmail(req.body.email);
 
     } catch (err) {
@@ -50,7 +50,7 @@ exports.registration = async(req, res, next) => {
 exports.login = (req, res) => {
 
     if (req.isAuthenticated()) {
-        return res.status(400).send({ msg: "Already logged in" })
+        return res.status(400).send({ sucess: false, msg: "Already logged in" })
     }
 
     if (req.body.username && req.body.password) {
@@ -60,12 +60,12 @@ exports.login = (req, res) => {
             } else {
                 req.logIn(user, (error) => {
                     if (error) return res.status(500).send(error);
-                    return res.status(200).send({ msg: "Login successful" });
+                    return res.status(200).send({ sucess: true, msg: "Login successful" });
                 });
             }
         })(req, res);
     } else {
-        res.status(400).send({ msg: "Missing username or password" });
+        res.status(400).send({ sucess: false, msg: "Missing username or password" });
     }
 };
 
@@ -74,9 +74,9 @@ exports.logout = (req, res) => {
 
     if (req.isAuthenticated()) {
         req.logout();
-        res.status(200).send({ msg: "Logout successful" });
+        res.status(200).send({ sucess: true, msg: "Logout successful" });
     } else {
-        res.status(403).send({ msg: "Log in, before you log out" })
+        res.status(403).send({ sucess: false, msg: "Log in, before you log out" })
     }
 };
 

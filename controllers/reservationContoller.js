@@ -20,7 +20,7 @@ exports.reservation = async(req, res) => {
     if (!errors.isEmpty()) {
 
         errorMassageArray = errors.array().map((errorObj) => errorObj.msg);
-        return res.status(422).send({ errorMessages: errorMassageArray });
+        return res.status(422).send({ sucess: false, errorMessages: errorMassageArray });
     }
 
     let hotel;
@@ -55,7 +55,7 @@ exports.reservation = async(req, res) => {
         return res.status(400).send(err);
     }
 
-    res.status(200).send({ msg: 'Reservation successful!' });
+    res.status(200).send({ sucess: true, msg: 'Reservation successful!' });
     //sendEmail(req.session.passport.user.email, req.body.hotelName, req.body.roomNumber);
 }
 
