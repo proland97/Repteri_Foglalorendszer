@@ -6,6 +6,7 @@ const passport = require('passport');
 const expressSession = require('express-session');
 const mongoose = require('mongoose');
 const MongoDBStore = require('connect-mongodb-session')(expressSession);
+const cors = require('cors');
 require('./config/passport');
 
 const errorController = require('./controllers/errorController');
@@ -24,6 +25,7 @@ const sessionStore = new MongoDBStore({
     cookie: { expires: new Date(Date.now() + 3600000) }
 })
 
+app.use(cors()); //allow access from anywhere
 app.use('/images', express.static('images'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
