@@ -56,7 +56,7 @@ exports.reservation = async(req, res) => {
     }
 
     res.status(200).send({ sucess: true, msg: 'Reservation successful!' });
-    //sendEmail(req.session.passport.user.email, req.body.hotelName, req.body.roomNumber);
+    sendEmail(req.session.passport.user.email, req.body.hotelName, req.body.roomNumber);
 }
 
 exports.myReservation = async(req, res) => {
