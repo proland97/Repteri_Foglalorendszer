@@ -15,23 +15,35 @@ exports.getHotels = async(req, res) => {
 }
 
 exports.getHotel = async(req, res) => {
+
     let result;
     try {
-        result = Hotel.findById(req.params.hotelId);
+        result = await Hotel.findById(req.params.hotelId);
     } catch (err) {
         return res.status(400).send(err)
     }
-    res.send(result);
+    if (result) {
+        res.send(result);
+    } else {
+        res.status(400).send({ success: false, msg: 'Hotel not found' })
+    }
+
 }
 
 exports.getHotelbyName = async(req, res) => {
+
     let result;
     try {
-        result = Hotel.find({ name: req.params.hotelName });
+        result = await Hotel.findOne({ name: req.params.hotelName });
     } catch (err) {
         return res.status(400).send(err)
     }
-    res.send(result);
+
+    if (result) {
+        res.send(result);
+    } else {
+        res.status(400).send({ success: false, msg: 'Hotel not found' })
+    }
 }
 
 exports.addHotel = async(req, res) => {
