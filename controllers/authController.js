@@ -60,7 +60,7 @@ exports.login = (req, res) => {
             } else {
                 req.logIn(user, (error) => {
                     if (error) return res.status(500).send(error);
-                    return res.status(200).send({ sucess: true, msg: "Login successful" });
+                    return res.status(200).send({ sucess: true, msg: "Login successful", role: req.session.passport.user.role });
                 });
             }
         })(req, res);

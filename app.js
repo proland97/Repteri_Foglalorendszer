@@ -25,7 +25,18 @@ const sessionStore = new MongoDBStore({
     cookie: { expires: new Date(Date.now() + 3600000) }
 })
 
-app.use(cors()); //allow access from anywhere
+var whitelist = 'http://localhost:4200';
+var corsOptions = {
+    origin: function (origin, callback) {
+      if (origin.indexOf(whitelist) === 0) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
+    credentials: true
+}
+
 app.use('/images', express.static('images'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,11 +54,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //ROUTES
-app.use('/hotel', hotelRoutes);
-app.use('/ratings', ratingRoutes);
-app.use('/reservations', reservationRoutes);
-app.use('/', authRoutes);
-app.use(errorController.get404);
+app.use('/hotel', cors(corsOptions), hotelRoutes);
+app.use('/ratings', cors(corsOptions), ratingRoutes);
+app.use('/reservations', cors(corsOptions), reservationRoutes);
+app.use('/', cors(corsOptions), authRoutes);
+app.use(cors(corsOptions), errorController.get404);
 //ROUTES
 
 mongoose.connect(
