@@ -1,0 +1,49 @@
+<h1>Welcome to our page!</h1>
+<table>
+    <tr>
+        <h3>Registration</h3>
+    </tr>
+    <tr>
+        <dt>
+            <label for="username">Username:</label>
+        </dt>
+        <dd>
+            <input type="text" id="username" [(ngModel)]="username">
+            <p class="error" *ngIf="wrongUsernameMessage">{{ wrongUsernameMessage }}</p>
+        </dd>
+    </tr>
+    <tr>
+        <dt>
+            <label for="email">Email:</label>
+        </dt>
+        <dd>
+            <input type="email" id="email" [(ngModel)]="email">
+            <p class="error" *ngIf="wrongEmailMessage">{{ wrongEmailMessage }}</p>
+        </dd>
+    </tr>
+    <tr>
+        <dt>
+            <label for="password">Password:</label>
+        </dt>
+        <dd>
+            <input type="password" id="password" [(ngModel)]="password">
+            <p class="error" *ngIf="wrongPasswordMessage">{{ wrongPasswordMessage }}</p>
+        </dd>
+    </tr>
+    <tr>
+        <dt>
+            <label for="confirm-password">Confirm password:</label>
+        </dt>
+        <dd>
+            <input type="password" id="confirm-password" [(ngModel)]="confirmPassword">
+            <p class="error" *ngIf="wrongConfirmPasswordMessage">{{ wrongConfirmPasswordMessage }}</p>
+        </dd>
+    </tr>
+    <button (click)="clickRegistrate()">Sign Up</button>
+</table>
+<p>
+    Already have an account?
+    <a [routerLink]="['/login']">Log In!</a>
+</p>
+
+<h5 style="color: red">{{ msg }}</h5>
