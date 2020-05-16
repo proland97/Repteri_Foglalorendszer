@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RegistrateService } from '../services/registrate/registrate.service';
+import { first, catchError, tap } from 'rxjs/operators';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'welcomepage',
@@ -35,17 +37,21 @@ export class WelcomepageComponent implements OnInit {
 
   clickRegistrate() {
     this.clearErrorMessages();
-    this.registrateService.registrate(this.username, this.email, this.password, this.confirmPassword).subscribe(
-      data => {
-        console.log('data: ', data);
-        localStorage.setItem('username', this.username);
-        this.router.navigate(['/startpage']);
-      },
-      error => {
-        console.log('error: ', error);
-        this.processErrors(error.error.errorMessages);
-      }
-    );
+    this.registrateService.registrate(this.username, this.email, this.password, this.confirmPassword)
+      .pipe(
+        first(),
+        catchError(error => {
+          console.log('error: ', error);
+          this.processErrors(error.error.errorMessages);
+          return empty();
+        }),
+        tap(data => {
+          console.log('data: ', data);
+          localStorage.setItem('username', this.username);
+          this.router.navigate(['/startpage']);
+        })
+      )
+      .subscribe();
   }
 
   clearErrorMessages() {

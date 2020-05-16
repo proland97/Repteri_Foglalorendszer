@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LogoutService } from '../services/logout/logout.service';
+import { first, catchError, tap } from 'rxjs/operators';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'logout',
@@ -15,15 +17,19 @@ export class LogoutComponent implements OnInit {
   }
 
   clickLogout() {
-    this.logoutService.logout().subscribe(
-      data => {
-        console.log('data:', data);
-        this.router.navigate(['/welcomepage']);
-      },
-      error => {
-        console.log('error:', error)
-      }
-    );
+    this.logoutService.logout()
+      .pipe(
+        first(),
+        catchError(error => {
+          console.log('error:', error);
+          return empty();
+        }),
+        tap(data => {
+          console.log('data:', data);
+          this.router.navigate(['/welcomepage']);
+        })
+      )
+      .subscribe();
   }
 
 }
