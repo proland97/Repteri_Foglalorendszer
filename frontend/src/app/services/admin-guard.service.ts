@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate } from '@angular/router';
+import { Router, CanActivateChild } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuardService implements CanActivate {
+export class AdminGuardService implements CanActivateChild {
 
   constructor(private router: Router) { }
 
-  canActivate(): boolean {
+  canActivateChild(): boolean {
     const role = localStorage.getItem('role');
     console.log(role);
     if (role === "admin") {

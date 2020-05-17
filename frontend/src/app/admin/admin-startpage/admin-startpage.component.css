@@ -2,6 +2,10 @@
     display: flex;
 }
 
+.menuitem {
+    cursor: pointer;
+}
+
 logout {
     margin-left: auto;
 }

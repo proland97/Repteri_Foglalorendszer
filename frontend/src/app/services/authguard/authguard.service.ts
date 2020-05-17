@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { Router, CanActivateChild } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthguardService implements CanActivate {
+export class AuthguardService implements CanActivateChild {
 
   constructor(private router: Router) { }
 
-  canActivate(): boolean {
+  canActivateChild(): boolean {
     const username = localStorage.getItem('username');
     if (username) {
       return true;

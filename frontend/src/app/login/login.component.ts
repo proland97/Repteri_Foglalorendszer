@@ -11,7 +11,10 @@ import { empty, ReplaySubject } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(
+    private router: Router, 
+    private loginService: LoginService,
+  ) { }
 
   username: string;
   password: string;
@@ -28,24 +31,26 @@ export class LoginComponent implements OnInit {
   }*/
 
   clickLogin() {
-    this.loginService.login(this.username, this.password).pipe(
-      first(),
-      catchError(error => {
-        console.log('error: ', error);
-        this.msg$.next(error);
-        return empty();
-      }),
-      tap(data => {
-        console.log('data: ', data);
-        localStorage.setItem('username', this.username);
-        localStorage.setItem('role', data.role);
-        if (data.role === 'admin') {
-          this.router.navigate(['/main']);
-        } else {
-          this.router.navigate(['/startpage']);
-        }
-      })
-    ).subscribe();
+    this.loginService.login(this.username, this.password)
+      .pipe(
+        first(),
+        catchError(error => {
+          console.log('error: ', error);
+          this.msg$.next(error);
+          return empty();
+        }),
+        tap(data => {
+          console.log('data: ', data);
+          localStorage.setItem('username', this.username);
+          localStorage.setItem('role', data.role);
+          if (data.role === 'admin') {
+            this.router.navigate(['/app/admin']);
+          } else {
+            this.router.navigate(['/app/startpage']);
+          }
+        })
+      )
+      .subscribe();
   }
 
 }

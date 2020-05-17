@@ -17,3 +17,11 @@ button {
     background-color: pink;
     margin-right: 50px;
 }
+
+.info {
+    background-color: yellow;
+}
+
+.success {
+    background-color: green;
+}

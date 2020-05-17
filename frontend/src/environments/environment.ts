@@ -10,7 +10,8 @@ export const environment = {
   registrateUrl: baseUrl + '/registration',
   loginUrl: baseUrl + '/login',
   logoutUrl: baseUrl + '/logout',
-  hotelsUrl: baseUrl + '/hotel/hotels'
+  hotelsUrl: baseUrl + '/hotel/hotels',
+  createHotelUrl: baseUrl + '/hotel/add-hotel'
 };
 
 /*

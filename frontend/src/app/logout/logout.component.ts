@@ -11,7 +11,10 @@ import { empty } from 'rxjs';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private router: Router, private logoutService: LogoutService) { }
+  constructor(
+    private router: Router, 
+    private logoutService: LogoutService,
+  ) { }
 
   ngOnInit(): void {
   }

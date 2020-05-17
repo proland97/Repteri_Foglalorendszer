@@ -46,4 +46,5 @@
     <a [routerLink]="['/login']">Log In!</a>
 </p>
 
-<h5 style="color: red">{{ msg }}</h5>
+<h5 class="success" *ngIf="success">Account successfully created. Now you can log in.</h5>
+<h5 class="info">{{ msg }}</h5>

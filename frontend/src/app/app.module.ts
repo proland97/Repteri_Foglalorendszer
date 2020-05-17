@@ -10,7 +10,9 @@ import { LoginComponent } from './login/login.component';
 import { WelcomepageComponent } from './welcomepage/welcomepage.component';
 import { ErrorComponent } from './error/error.component';
 import { LogoutComponent } from './logout/logout.component';
-import { AdminStartpageComponent } from './admin-startpage/admin-startpage.component';
+import { AdminStartpageComponent } from './admin/admin-startpage/admin-startpage.component';
+import { CreateHotelComponent } from './admin/create-hotel/create-hotel.component';
+import { HomeComponent } from './admin/home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { AdminStartpageComponent } from './admin-startpage/admin-startpage.compo
     WelcomepageComponent,
     ErrorComponent,
     LogoutComponent,
-    AdminStartpageComponent
+    AdminStartpageComponent,
+    CreateHotelComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

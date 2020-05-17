@@ -1,0 +1,31 @@
+<admin-home class="menuitem"></admin-home>
+<h1>Create new hotel</h1>
+<table>
+    <tr>
+        <dt>
+            <label for="name">Hotel name:</label>
+        </dt>
+        <dd>
+            <input type="text" id="name" [(ngModel)]="name">
+        </dd>
+    </tr>
+    <tr>
+        <dt>
+            <label for="owner">Owner:</label>
+        </dt>
+        <dd>
+            <input type="text" id="owner" [(ngModel)]="owner">
+        </dd>
+
+    </tr>
+    <tr>
+        <dt>
+            <label for="freeRooms">Number of free rooms:</label>
+        </dt>
+        <dd>
+            <input type="text" id="freeRooms" [(ngModel)]="freeRooms">
+        </dd>
+    </tr>
+    <button (click)="clickCreateHotel()">Create</button>
+</table>
+<p class="message" *ngIf="msg$ | async as message">{{ message }}</p>

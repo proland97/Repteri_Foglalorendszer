@@ -11,7 +11,10 @@ import { empty } from 'rxjs';
 })
 export class WelcomepageComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router, private registrateService: RegistrateService) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private registrateService: RegistrateService,
+  ) { }
 
   username: string;
   email: string;
@@ -23,6 +26,7 @@ export class WelcomepageComponent implements OnInit {
   wrongEmailMessage: string = '';
   wrongPasswordMessage: string = '';
   wrongConfirmPasswordMessage: string = '';
+  success: boolean;
 
   ngOnInit(): void {
     localStorage.clear();
@@ -33,6 +37,8 @@ export class WelcomepageComponent implements OnInit {
         this.msg = params.msg;
       }
     });
+
+    this.success = false;
   }
 
   clickRegistrate() {
@@ -47,8 +53,7 @@ export class WelcomepageComponent implements OnInit {
         }),
         tap(data => {
           console.log('data: ', data);
-          localStorage.setItem('username', this.username);
-          this.router.navigate(['/startpage']);
+          this.success = true;
         })
       )
       .subscribe();
