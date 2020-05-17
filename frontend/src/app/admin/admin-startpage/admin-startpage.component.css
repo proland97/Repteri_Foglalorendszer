@@ -9,3 +9,7 @@
 logout {
     margin-left: auto;
 }
+
+th, td {
+    border: 1px solid black;
+}

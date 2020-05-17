@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ListHotelsService } from 'src/app/services/hotel/read/list-hotels.service';
+import { HotelService } from 'src/app/services/hotel/hotel.service';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'admin-startpage',
@@ -9,10 +11,23 @@ import { ListHotelsService } from 'src/app/services/hotel/read/list-hotels.servi
 })
 export class AdminStartpageComponent implements OnInit {
 
-  constructor(private router: Router, private listHotelsService: ListHotelsService) {
+  constructor(
+    private router: Router,
+    private hotelService: HotelService
+  ) {
   }
 
-  ngOnInit(): void { }
+  hotels: [];
+
+  ngOnInit(): void { 
+    this.hotelService.getHotels().pipe(first()).subscribe(
+      data => {
+        this.hotels = data;
+        console.log(data);
+        console.log(this.hotels.length);
+      }
+    );
+  }
 
   clickCreateHotel() {
     this.router.navigate(['/app/admin/create']);

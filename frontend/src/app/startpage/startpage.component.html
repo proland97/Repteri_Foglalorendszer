@@ -1,4 +1,23 @@
 <div class="menu">
     <logout></logout>
 </div>
-<p>startpage works!</p>
+<table>
+    <thead>
+        <tr>
+            <th>Hotel name</th>
+            <th>Owner</th>
+            <th>Ratings</th>
+            <th>Number of free rooms</th>
+            <th>Rooms</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let hotel of hotels">
+            <td>{{ hotel.name }}</td>
+            <td>{{ hotel.owner }}</td>
+            <td><a (click)="clickViewRatings(hotel._id)">View ratings</a></td>
+            <td>{{ hotel.freeRooms }}</td>
+            <td><a (click)="clickViewRooms(hotel._id)">View rooms</a></td>
+        </tr>
+    </tbody>
+</table>

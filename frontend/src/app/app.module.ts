@@ -13,6 +13,9 @@ import { LogoutComponent } from './logout/logout.component';
 import { AdminStartpageComponent } from './admin/admin-startpage/admin-startpage.component';
 import { CreateHotelComponent } from './admin/create-hotel/create-hotel.component';
 import { HomeComponent } from './admin/home/home.component';
+import { ViewRatingsComponent } from './app/view-ratings/view-ratings.component';
+import { ViewRoomsComponent } from './app/view-rooms/view-rooms.component';
+import { UserHomeComponent } from './app/home/home.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { HomeComponent } from './admin/home/home.component';
     LogoutComponent,
     AdminStartpageComponent,
     CreateHotelComponent,
-    HomeComponent
+    HomeComponent,
+    ViewRatingsComponent,
+    ViewRoomsComponent,
+    UserHomeComponent
   ],
   imports: [
     BrowserModule,

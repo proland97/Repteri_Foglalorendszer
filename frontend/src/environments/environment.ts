@@ -11,7 +11,9 @@ export const environment = {
   loginUrl: baseUrl + '/login',
   logoutUrl: baseUrl + '/logout',
   hotelsUrl: baseUrl + '/hotel/hotels',
-  createHotelUrl: baseUrl + '/hotel/add-hotel'
+  createHotelUrl: baseUrl + '/hotel/add-hotel',
+  getHotelUrl: baseUrl + '/hotel/hotel',
+  rateUrl: baseUrl + '/ratings/rate',
 };
 
 /*
