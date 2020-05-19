@@ -1,4 +1,5 @@
 <div class="menu">
+    <p (click)="clickMyReservations()">My reservations</p>
     <logout></logout>
 </div>
 <table>
@@ -7,7 +8,6 @@
             <th>Hotel name</th>
             <th>Owner</th>
             <th>Ratings</th>
-            <th>Number of free rooms</th>
             <th>Rooms</th>
         </tr>
     </thead>
@@ -16,8 +16,7 @@
             <td>{{ hotel.name }}</td>
             <td>{{ hotel.owner }}</td>
             <td><a (click)="clickViewRatings(hotel._id)">View ratings</a></td>
-            <td>{{ hotel.freeRooms }}</td>
-            <td><a (click)="clickViewRooms(hotel._id)">View rooms</a></td>
+            <td><a (click)="clickViewFreeRooms(hotel._id)">View free rooms</a></td>
         </tr>
     </tbody>
 </table>

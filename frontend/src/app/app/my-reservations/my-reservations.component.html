@@ -1,0 +1,22 @@
+<div>
+    <home-user class="menuitem"></home-user>
+</div>
+
+<table *ngIf="reservations?.length; else elseBlock">
+    <thead>
+        <tr>
+            <th>Hotel name</th>
+            <th>Room number</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let reservation of reservations">
+            <td>{{ reservation.hotelName }}</td>
+            <td>{{ reservation.roomNumber }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #elseBlock>
+    <p>You don't have any reservation yet.</p>
+</ng-template>

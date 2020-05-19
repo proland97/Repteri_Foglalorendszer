@@ -10,7 +10,7 @@
     <button (click)="clickRate()">Rate</button>
 </div>
 
-<table>
+<table *ngIf="ratings?.length; else elseBlock">
     <thead>
         <tr>
             <th>User</th>
@@ -24,3 +24,7 @@
         </tr>
     </tbody>
 </table>
+
+<ng-template #elseBlock>
+    <p>There are no ratings yet.</p>
+</ng-template>

@@ -3,6 +3,7 @@ import { Observable, throwError } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
+import { Room } from 'src/app/model/room.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,18 @@ export class HotelService {
 
   rateHotel(hotelName: string, stars: number) {
     return this.http.post(environment.rateUrl, {hotelName, stars}, this.httpOptions).pipe(
+      catchError(error => throwError(error))
+    );
+  }
+
+  createHotel(name: string, owner: string, freeRooms: number, rooms: Room[]): Observable<any> {
+    return this.http.post(environment.createHotelUrl, {name, owner, freeRooms, rooms}, this.httpOptions).pipe(
+      catchError(error => throwError(error.error.message))
+    );
+  }
+
+  deleteHotel(hotelId: string): Observable<any> {
+    return this.http.post(environment.deleteHotelUrl, {hotelId}, this.httpOptions).pipe(
       catchError(error => throwError(error))
     );
   }

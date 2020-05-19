@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HotelService } from 'src/app/services/hotel/hotel.service';
-import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, catchError, tap } from 'rxjs/operators';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'admin-startpage',
@@ -20,16 +20,37 @@ export class AdminStartpageComponent implements OnInit {
   hotels: [];
 
   ngOnInit(): void { 
-    this.hotelService.getHotels().pipe(first()).subscribe(
-      data => {
-        this.hotels = data;
-        console.log(data);
-        console.log(this.hotels.length);
-      }
-    );
+    this.updateHotelList();
   }
 
   clickCreateHotel() {
     this.router.navigate(['/app/admin/create']);
+  }
+
+  clickEditRooms(id: string) {
+    this.router.navigate(['/app/admin/editrooms', id]);
+  }
+
+  clickDelete(id: string) {
+    this.hotelService.deleteHotel(id)
+      .pipe(
+        first(),
+        catchError(error => {
+          console.log(error);
+          return empty();
+        }),
+        tap(data => {
+          this.updateHotelList();
+        })
+      )
+      .subscribe();
+  }
+
+  updateHotelList() {
+    this.hotelService.getHotels().pipe(first()).subscribe(
+      data => {
+        this.hotels = data;
+      }
+    );
   }
 }

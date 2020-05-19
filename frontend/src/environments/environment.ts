@@ -12,8 +12,11 @@ export const environment = {
   logoutUrl: baseUrl + '/logout',
   hotelsUrl: baseUrl + '/hotel/hotels',
   createHotelUrl: baseUrl + '/hotel/add-hotel',
+  deleteHotelUrl: baseUrl + '/hotel/delete-hotel',
   getHotelUrl: baseUrl + '/hotel/hotel',
   rateUrl: baseUrl + '/ratings/rate',
+  reservationUrl: baseUrl + '/reservations/reservation',
+  myReservationsUrl: baseUrl + '/reservations/myreservation',
 };
 
 /*

@@ -2,7 +2,7 @@
     display: flex;
 }
 
-.menuitem {
+.menuitem, a {
     cursor: pointer;
 }
 

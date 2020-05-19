@@ -20,12 +20,21 @@
     </tr>
     <tr>
         <dt>
-            <label for="freeRooms">Number of free rooms:</label>
+            <label for="numberOfRooms">Number of rooms:</label>
         </dt>
         <dd>
-            <input type="text" id="freeRooms" [(ngModel)]="freeRooms">
+            <input type="number" id="numberOfRooms" (input)="updateNumberOfRooms($event.target.value)">
         </dd>
+    </tr>
+    <tr *ngFor="let index of indices">
+        <input *ngIf="show[index]" type="number" placeholder="Room number" [(ngModel)]="rooms[index].roomNumber"
+            required>
+        <input *ngIf="show[index]" type="number" placeholder="Number of beds" [(ngModel)]="rooms[index].numberOfBeds"
+            required>
+        <label *ngIf="show[index]" for="available">Available</label>
+        <input *ngIf="show[index]" id="available" type="checkbox" [(ngModel)]="rooms[index].isFree">
+        <button *ngIf="show[index]" (click)="clickSave(index)">Save</button>
     </tr>
     <button (click)="clickCreateHotel()">Create</button>
 </table>
-<p class="message" *ngIf="msg$ | async as message">{{ message }}</p>
+<p class="message" [style.background-color]="color" *ngIf="msg$ | async as message">{{ message }}</p>

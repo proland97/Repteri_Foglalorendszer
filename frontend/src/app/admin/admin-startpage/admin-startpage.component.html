@@ -8,21 +8,15 @@
     <thead>
         <tr>
             <th>Hotel name</th>
-            <th>Owner</th>
-            <th>Ratings</th>
-            <th>Number of free rooms</th>
             <th>Rooms</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let hotel of hotels">
             <td>{{ hotel.name }}</td>
-            <td>{{ hotel.owner }}</td>
-            <td><a>View ratings</a></td>
-            <td>{{ hotel.freeRooms }}</td>
-            <td><a>View rooms</a></td>
+            <td><a (click)="clickEditRooms(hotel._id)">Edit rooms</a></td>
             <button>Modify</button>
-            <button>Delete</button>
+            <button (click)="clickDelete(hotel._id)">Delete</button>
         </tr>
     </tbody>
 </table>

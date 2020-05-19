@@ -10,6 +10,6 @@ th, td {
     border: 1px solid black;
 }
 
-a {
+a, p {
     cursor: pointer;
 }

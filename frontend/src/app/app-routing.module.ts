@@ -11,6 +11,8 @@ import { AdminGuardService } from './services/admin-guard.service';
 import { CreateHotelComponent } from './admin/create-hotel/create-hotel.component';
 import { ViewRatingsComponent } from './app/view-ratings/view-ratings.component';
 import { ViewRoomsComponent } from './app/view-rooms/view-rooms.component';
+import { MyReservationsComponent } from './app/my-reservations/my-reservations.component';
+import { EditRoomsComponent } from './admin/edit-rooms/edit-rooms.component';
 
 
 const routes: Routes = [
@@ -22,9 +24,11 @@ const routes: Routes = [
     {path: 'startpage', component: StartpageComponent},
     {path: 'ratings/:id', component: ViewRatingsComponent},
     {path: 'rooms/:id', component: ViewRoomsComponent},
+    {path: 'reservations', component: MyReservationsComponent},
     {path: 'admin', canActivateChild: [AdminGuardService], children: [
       {path: '', component: AdminStartpageComponent},
       {path: 'create', component: CreateHotelComponent},
+      {path: 'editrooms/:id', component: EditRoomsComponent},
     ]},
   ]},
 

@@ -1,0 +1,20 @@
+<admin-home class="menuitem"></admin-home>
+
+<table>
+    <thead>
+        <tr>
+            <th>Room number</th>
+            <th>Number of beds</th>
+            <th>Is free?</th>
+            <th>Pictures</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let room of rooms">
+            <td>{{ room.roomNumber }}</td>
+            <td>{{ room.numberOfBeds }}</td>
+            <td><input type="checkbox" [checked]="room.isFree"></td>
+            <td><a>View pictures</a></td>
+        </tr>
+    </tbody>
+</table>
