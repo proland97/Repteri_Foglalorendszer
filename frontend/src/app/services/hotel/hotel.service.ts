@@ -39,6 +39,12 @@ export class HotelService {
     );
   }
 
+  modifyHotel(hotelId: string, name: string, owner: string, freeRooms: number, rooms: Room[]): Observable<any> {
+    return this.http.post(environment.modifyHotelUrl, {hotelId, name, owner, freeRooms, rooms}, this.httpOptions).pipe(
+      catchError(error => throwError(error.error.message))
+    );
+  }
+
   deleteHotel(hotelId: string): Observable<any> {
     return this.http.post(environment.deleteHotelUrl, {hotelId}, this.httpOptions).pipe(
       catchError(error => throwError(error))

@@ -15,7 +15,7 @@
         <tr *ngFor="let hotel of hotels">
             <td>{{ hotel.name }}</td>
             <td><a (click)="clickEditRooms(hotel._id)">Edit rooms</a></td>
-            <button>Modify</button>
+            <button (click)="clickModify(hotel._id)">Modify</button>
             <button (click)="clickDelete(hotel._id)">Delete</button>
         </tr>
     </tbody>

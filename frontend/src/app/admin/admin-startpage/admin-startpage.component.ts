@@ -46,6 +46,10 @@ export class AdminStartpageComponent implements OnInit {
       .subscribe();
   }
 
+  clickModify(id: string) {
+    this.router.navigate(['/app/admin/modify', id]);
+  }
+
   updateHotelList() {
     this.hotelService.getHotels().pipe(first()).subscribe(
       data => {

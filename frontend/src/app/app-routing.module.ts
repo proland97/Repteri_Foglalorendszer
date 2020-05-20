@@ -13,6 +13,7 @@ import { ViewRatingsComponent } from './app/view-ratings/view-ratings.component'
 import { ViewRoomsComponent } from './app/view-rooms/view-rooms.component';
 import { MyReservationsComponent } from './app/my-reservations/my-reservations.component';
 import { EditRoomsComponent } from './admin/edit-rooms/edit-rooms.component';
+import { ModifyHotelComponent } from './admin/modify-hotel/modify-hotel.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
     {path: 'admin', canActivateChild: [AdminGuardService], children: [
       {path: '', component: AdminStartpageComponent},
       {path: 'create', component: CreateHotelComponent},
+      {path: 'modify/:id', component: ModifyHotelComponent},
       {path: 'editrooms/:id', component: EditRoomsComponent},
     ]},
   ]},
