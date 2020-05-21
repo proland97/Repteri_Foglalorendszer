@@ -50,4 +50,19 @@ export class HotelService {
       catchError(error => throwError(error))
     );
   }
+
+  uploadImageForHotel(formData: FormData): Observable<any> {
+    const httpOptions = {
+      withCredentials: true,
+    };
+    return this.http.post(environment.uploadHotelImageUrl, formData, httpOptions).pipe(
+      catchError(error => throwError(error))
+    );
+  }
+
+  deleteHotelImages(hotelName: string): Observable<any> {
+    return this.http.post(environment.deleteHotelImagesUrl, {hotelName}, this.httpOptions).pipe(
+      catchError(error => throwError(error))
+    );
+  }
 }

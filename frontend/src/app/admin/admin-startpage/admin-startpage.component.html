@@ -4,11 +4,21 @@
 </div>
 <p></p>
 
-<table>
-    <tr *ngFor="let hotel of hotels">
-        <td>{{ hotel.name }}</td>
-        <button></button>
+<p class="message" [style.background-color]="color" *ngIf="msg$ | async as message">{{ message }}</p>
+
+<div>
+    <div *ngFor="let hotel of hotels; index as i">
+        <span>{{ hotel.name }}</span>
+
+        <button *ngIf="show[i] === false" (click)="clickAddPictures(i)">Add picture</button>
+        <form *ngIf="show[i] === true" [formGroup]="uploadForm" (ngSubmit)="onSubmit(hotel.name, i)">
+            <input type="file" name="picture" (change)="onFileSelect($event)">
+            <button type="submit">Upload</button>
+        </form>
+
+        <button (click)="clickDeletePictures(hotel.name)">Delete pictures</button>
+
         <button (click)="clickModify(hotel._id)">Modify</button>
         <button (click)="clickDelete(hotel._id)">Delete</button>
-    </tr>
-</table>
+    </div>
+</div>

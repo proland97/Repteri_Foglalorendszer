@@ -18,6 +18,8 @@ export const environment = {
   rateUrl: baseUrl + '/ratings/rate',
   reservationUrl: baseUrl + '/reservations/reservation',
   myReservationsUrl: baseUrl + '/reservations/myreservation',
+  uploadHotelImageUrl: baseUrl + '/hotel/uploadhotelimage',
+  deleteHotelImagesUrl: baseUrl + '/hotel/deletehotelimages',
 };
 
 /*
