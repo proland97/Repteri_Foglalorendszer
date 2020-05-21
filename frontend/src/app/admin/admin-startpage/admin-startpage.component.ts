@@ -27,10 +27,6 @@ export class AdminStartpageComponent implements OnInit {
     this.router.navigate(['/app/admin/create']);
   }
 
-  clickEditRooms(id: string) {
-    this.router.navigate(['/app/admin/editrooms', id]);
-  }
-
   clickDelete(id: string) {
     this.hotelService.deleteHotel(id)
       .pipe(

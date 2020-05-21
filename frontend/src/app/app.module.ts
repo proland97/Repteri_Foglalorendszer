@@ -18,7 +18,6 @@ import { ViewRoomsComponent } from './app/view-rooms/view-rooms.component';
 import { UserHomeComponent } from './app/home/home.component';
 import { PicturesComponent } from './app/pictures/pictures.component';
 import { MyReservationsComponent } from './app/my-reservations/my-reservations.component';
-import { EditRoomsComponent } from './admin/edit-rooms/edit-rooms.component';
 import { ModifyHotelComponent } from './admin/modify-hotel/modify-hotel.component';
 
 @NgModule({
@@ -37,7 +36,6 @@ import { ModifyHotelComponent } from './admin/modify-hotel/modify-hotel.componen
     UserHomeComponent,
     PicturesComponent,
     MyReservationsComponent,
-    EditRoomsComponent,
     ModifyHotelComponent
   ],
   imports: [

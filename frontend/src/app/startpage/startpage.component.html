@@ -9,6 +9,7 @@
             <th>Owner</th>
             <th>Ratings</th>
             <th>Rooms</th>
+            <th>Pictures</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
             <td>{{ hotel.owner }}</td>
             <td><a (click)="clickViewRatings(hotel._id)">View ratings</a></td>
             <td><a (click)="clickViewFreeRooms(hotel._id)">View free rooms</a></td>
+            <td><a (click)="clickPictures(hotel._id)">View pictures</a></td>
         </tr>
     </tbody>
 </table>

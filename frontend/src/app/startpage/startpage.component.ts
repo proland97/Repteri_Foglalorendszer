@@ -35,6 +35,10 @@ export class StartpageComponent implements OnInit {
     this.router.navigate(['/app/rooms', id]);
   }
 
+  clickPictures(id: string) {
+    this.router.navigate(['/app/pictures', id]);
+  }
+
   clickMyReservations() {
     this.router.navigate(['/app/reservations']);
   }

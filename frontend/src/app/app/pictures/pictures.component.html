@@ -1,1 +1,11 @@
-<p>pictures works!</p>
+<div>
+    <home-user class="menuitem"></home-user>
+    <p *ngIf="message === 'for this room'" class="menuitem" (click)="clickBack()">Back</p>
+</div>
+
+<div *ngIf="images?.length; else elseBlock">
+    <img *ngFor="let image of images" [src]="image.imagePath">
+</div>
+<ng-template #elseBlock>
+    <p>There are no available pictures for this {{ message }}.</p>
+</ng-template>

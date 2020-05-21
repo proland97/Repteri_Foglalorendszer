@@ -61,7 +61,7 @@ export class ViewRoomsComponent implements OnInit {
     );
   }
 
-  viewPictures() {
-    console.log('view');
+  viewPictures(id: string) {
+    this.router.navigate(['app/rooms', this.id, id]);
   }
 }

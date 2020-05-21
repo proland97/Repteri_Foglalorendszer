@@ -12,8 +12,8 @@ import { CreateHotelComponent } from './admin/create-hotel/create-hotel.componen
 import { ViewRatingsComponent } from './app/view-ratings/view-ratings.component';
 import { ViewRoomsComponent } from './app/view-rooms/view-rooms.component';
 import { MyReservationsComponent } from './app/my-reservations/my-reservations.component';
-import { EditRoomsComponent } from './admin/edit-rooms/edit-rooms.component';
 import { ModifyHotelComponent } from './admin/modify-hotel/modify-hotel.component';
+import { PicturesComponent } from './app/pictures/pictures.component';
 
 
 const routes: Routes = [
@@ -24,13 +24,18 @@ const routes: Routes = [
   {path: 'app', canActivateChild: [AuthguardService], children: [
     {path: 'startpage', component: StartpageComponent},
     {path: 'ratings/:id', component: ViewRatingsComponent},
-    {path: 'rooms/:id', component: ViewRoomsComponent},
+    {path: 'rooms', children: [
+      {path: ':id', children: [
+        {path: '', component: ViewRoomsComponent},
+        {path: ':id2' , component: PicturesComponent},
+      ]},
+    ]},
+    {path: 'pictures/:id', component: PicturesComponent},
     {path: 'reservations', component: MyReservationsComponent},
     {path: 'admin', canActivateChild: [AdminGuardService], children: [
       {path: '', component: AdminStartpageComponent},
       {path: 'create', component: CreateHotelComponent},
       {path: 'modify/:id', component: ModifyHotelComponent},
-      {path: 'editrooms/:id', component: EditRoomsComponent},
     ]},
   ]},
 

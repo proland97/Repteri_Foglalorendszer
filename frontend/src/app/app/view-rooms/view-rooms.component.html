@@ -12,7 +12,7 @@
         <tr *ngFor="let room of rooms">
             <td *ngIf="room.isFree">{{ room.roomNumber }}</td>
             <td *ngIf="room.isFree">{{ room.numberOfBeds }}</td>
-            <td *ngIf="room.isFree"><a (click)="viewPictures()">View pictures</a></td>
+            <td *ngIf="room.isFree"><a (click)="viewPictures(room._id)">View pictures</a></td>
             <button *ngIf="room.isFree" (click)="reservate(room.roomNumber)">Reservate</button>
         </tr>
     </tbody>
