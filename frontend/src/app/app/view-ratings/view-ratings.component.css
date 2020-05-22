@@ -1,0 +1,13 @@
+.menuitem {
+    text-align: left;
+    cursor: pointer;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+div {
+    display: flex;
+    align-items: flex-start;
+}

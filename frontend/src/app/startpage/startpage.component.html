@@ -1,0 +1,35 @@
+<ng-container *ngIf="!loading; else loadingTemplate">
+    <div class="menu">
+        <p (click)="clickMyReservations()">My reservations</p>
+        <logout></logout>
+    </div>
+
+    <table *ngIf="hotels?.length; else noHotels">
+        <thead>
+            <tr>
+                <th>Hotel name</th>
+                <th>Owner</th>
+                <th>Ratings</th>
+                <th>Rooms</th>
+                <th>Pictures</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let hotel of hotels">
+                <td>{{ hotel.name }}</td>
+                <td>{{ hotel.owner }}</td>
+                <td><a (click)="clickViewRatings(hotel._id)">View ratings</a></td>
+                <td><a (click)="clickViewFreeRooms(hotel._id)">View free rooms</a></td>
+                <td><a (click)="clickPictures(hotel._id)">View pictures</a></td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+
+<ng-template #noHotels>
+    <p>There are no hotels yet.</p>
+</ng-template>
+
+<ng-template #loadingTemplate>
+    <p>Loading...</p>
+</ng-template>

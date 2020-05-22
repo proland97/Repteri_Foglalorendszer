@@ -1,0 +1,15 @@
+.menu {
+    display: flex;
+}
+
+logout {
+    margin-left: auto;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+a, p {
+    cursor: pointer;
+}

@@ -1,0 +1,26 @@
+<ng-container *ngIf="!loading; else loadingTemplate">
+    <admin-home class="menuitem"></admin-home>
+
+    <ng-container *ngIf="rooms?.length; else noRooms">
+        <p class="message" [style.background-color]="color" *ngIf="msg$ | async as message">{{ message }}</p>
+
+        <div *ngFor="let room of rooms; index as i">
+            <span>{{ room.roomNumber }}</span>
+            <button *ngIf="!show[i]" (click)="clickAddPictures(i)">Add picture</button>
+            <form *ngIf="show[i]" [formGroup]="uploadForm" (ngSubmit)="onSubmit(room.roomNumber, i)">
+                <input type="file" name="picture" (change)="onFileSelect($event)">
+                <button type="submit">Upload</button>
+            </form>
+
+            <button (click)="clickDeletePictures(room.roomNumber)">Delete pictures</button>
+        </div>
+    </ng-container>
+</ng-container>
+
+<ng-template #noRooms>
+    <p>There are no rooms in this hotel.</p>
+</ng-template>
+
+<ng-template #loadingTemplate>
+    <p>Loading...</p>
+</ng-template>

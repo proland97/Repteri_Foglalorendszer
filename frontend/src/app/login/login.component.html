@@ -1,0 +1,18 @@
+<p class="error" *ngIf="msg$ | async as message">{{ message }}</p>
+<table>
+    <dt>
+        <label for="username">Username</label>
+    </dt>
+    <dd>
+        <input type="text" id="username" [(ngModel)]="username">
+    </dd>
+    <dt>
+        <label for="password">Password</label>
+    </dt>
+    <dd>
+        <input type="password" id="password" [(ngModel)]="password">
+    </dd>
+
+    <button (click)="clickLogin()">Login</button>
+</table>
+<p>Back to <a [routerLink]="['/welcomepage']">welcomepage</a>.</p>

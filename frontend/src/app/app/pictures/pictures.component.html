@@ -1,0 +1,18 @@
+<ng-container *ngIf="!loading; else loadingTemplate">
+    <div>
+        <home-user class="menuitem"></home-user>
+        <p *ngIf="message === 'for this room'" class="menuitem" (click)="clickBack()">Back</p>
+    </div>
+
+    <div *ngIf="images?.length; else noImages">
+        <img *ngFor="let image of images" [src]="image.imagePath">
+    </div>
+</ng-container>
+
+<ng-template #noImages>
+    <p>There are no available pictures for this {{ message }}.</p>
+</ng-template>
+
+<ng-template #loadingTemplate>
+    <p>Loading...</p>
+</ng-template>

@@ -1,0 +1,29 @@
+<ng-container *ngIf="!loading; else loadingTemplate">
+    <home-user class="menuitem"></home-user>
+
+    <table *ngIf="rooms?.length && freeRoomExists; else noFreeRooms">
+        <thead>
+            <tr>
+                <th>Room number</th>
+                <th>Number of beds</th>
+                <th>Pictures</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let room of rooms">
+                <td *ngIf="room.isFree">{{ room.roomNumber }}</td>
+                <td *ngIf="room.isFree">{{ room.numberOfBeds }}</td>
+                <td *ngIf="room.isFree"><a (click)="viewPictures(room._id)">View pictures</a></td>
+                <button *ngIf="room.isFree" (click)="reservate(room.roomNumber)">Reservate</button>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+
+<ng-template #noFreeRooms>
+    <p>There are no free rooms in this hotel currently.</p>
+</ng-template>
+
+<ng-template #loadingTemplate>
+<p>Loading...</p>
+</ng-template>
