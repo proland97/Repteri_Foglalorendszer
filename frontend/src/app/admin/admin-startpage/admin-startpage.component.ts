@@ -40,6 +40,10 @@ export class AdminStartpageComponent implements OnInit {
     this.router.navigate(['/app/admin/create']);
   }
 
+  clickUploadRoomImage(id: string) {
+    this.router.navigate(['/app/admin/rooms', id]);
+  }
+
   onFileSelect(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];

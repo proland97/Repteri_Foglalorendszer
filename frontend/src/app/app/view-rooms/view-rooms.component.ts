@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotelService } from 'src/app/services/hotel/hotel.service';
-import { first, catchError, tap } from 'rxjs/operators';
+import { first, catchError, tap, switchMap } from 'rxjs/operators';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
 import { empty } from 'rxjs';
 
@@ -23,18 +23,25 @@ export class ViewRoomsComponent implements OnInit {
   rooms: [];
   hotelName: string;
 
+  loading: boolean;
+
   ngOnInit(): void {
-    this.route.params.pipe(first()).subscribe(
-      data => {
-        this.id = data.id;
-        this.hotelService.getHotelById(this.id).pipe(first()).subscribe(
-          data => {
-            this.rooms = data.rooms;
-            this.hotelName = data.name;
-          }
-        );
-      }
-    )
+    this.loading = true;
+    this.route.params
+      .pipe(
+        switchMap(data => {
+          this.id = data.id;
+          return this.hotelService.getHotelById(this.id)
+        }),
+        first()
+      )
+      .subscribe(
+        data => {
+          this.loading = false;
+          this.rooms = data.rooms;
+          this.hotelName = data.name;
+        }
+      )
   }
 
   reservate(roomNumber: string) {

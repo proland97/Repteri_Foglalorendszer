@@ -14,6 +14,7 @@ import { ViewRoomsComponent } from './app/view-rooms/view-rooms.component';
 import { MyReservationsComponent } from './app/my-reservations/my-reservations.component';
 import { ModifyHotelComponent } from './admin/modify-hotel/modify-hotel.component';
 import { PicturesComponent } from './app/pictures/pictures.component';
+import { UploadRoomImageComponent } from './admin/upload-room-image/upload-room-image.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
       {path: '', component: AdminStartpageComponent},
       {path: 'create', component: CreateHotelComponent},
       {path: 'modify/:id', component: ModifyHotelComponent},
+      {path: 'rooms/:id', component: UploadRoomImageComponent},
     ]},
   ]},
 

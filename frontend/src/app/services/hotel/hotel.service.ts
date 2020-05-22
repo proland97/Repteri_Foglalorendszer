@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
 import { Room } from 'src/app/model/room.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -65,4 +65,20 @@ export class HotelService {
       catchError(error => throwError(error))
     );
   }
+
+  uploadImageForRoom(formData: FormData): Observable<any> {
+    const httpOptions = {
+      withCredentials: true,
+    };
+    return this.http.post(environment.uploadUrl, formData, httpOptions).pipe(
+      catchError(error => throwError(error))
+    );
+  }
+
+  deleteRoomImages(hotelName: string, roomNumber: number): Observable<any> {
+    return this.http.post(environment.deleteRoomImagesUrl, {hotelName, roomNumber}, this.httpOptions).pipe(
+      catchError(error => throwError(error))
+    );
+  }
+
 }

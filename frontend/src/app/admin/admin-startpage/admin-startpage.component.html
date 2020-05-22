@@ -10,6 +10,8 @@
     <div *ngFor="let hotel of hotels; index as i">
         <span>{{ hotel.name }}</span>
 
+        <button (click)="clickUploadRoomImage(hotel._id)">Upload image for rooms</button>
+
         <button *ngIf="show[i] === false" (click)="clickAddPictures(i)">Add picture</button>
         <form *ngIf="show[i] === true" [formGroup]="uploadForm" (ngSubmit)="onSubmit(hotel.name, i)">
             <input type="file" name="picture" (change)="onFileSelect($event)">

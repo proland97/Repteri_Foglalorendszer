@@ -20,6 +20,8 @@ export const environment = {
   myReservationsUrl: baseUrl + '/reservations/myreservation',
   uploadHotelImageUrl: baseUrl + '/hotel/uploadhotelimage',
   deleteHotelImagesUrl: baseUrl + '/hotel/deletehotelimages',
+  uploadUrl: baseUrl + '/hotel/uploadroomimage',
+  deleteRoomImagesUrl: baseUrl + '/hotel/deleteroomimages',
 };
 
 /*

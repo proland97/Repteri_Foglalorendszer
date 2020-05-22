@@ -19,6 +19,7 @@ import { UserHomeComponent } from './app/home/home.component';
 import { PicturesComponent } from './app/pictures/pictures.component';
 import { MyReservationsComponent } from './app/my-reservations/my-reservations.component';
 import { ModifyHotelComponent } from './admin/modify-hotel/modify-hotel.component';
+import { UploadRoomImageComponent } from './admin/upload-room-image/upload-room-image.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ModifyHotelComponent } from './admin/modify-hotel/modify-hotel.componen
     UserHomeComponent,
     PicturesComponent,
     MyReservationsComponent,
-    ModifyHotelComponent
+    ModifyHotelComponent,
+    UploadRoomImageComponent
   ],
   imports: [
     BrowserModule,
