@@ -1,7 +1,7 @@
 <ng-container *ngIf="!loading; else loadingTemplate">
     <home-user class="menuitem"></home-user>
 
-    <table *ngIf="rooms?.length; else noFreeRooms">
+    <table *ngIf="rooms?.length && freeRoomExists; else noFreeRooms">
         <thead>
             <tr>
                 <th>Room number</th>

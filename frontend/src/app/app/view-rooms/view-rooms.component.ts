@@ -4,6 +4,7 @@ import { HotelService } from 'src/app/services/hotel/hotel.service';
 import { first, catchError, tap, switchMap } from 'rxjs/operators';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
 import { empty } from 'rxjs';
+import { Room } from 'src/app/model/room.model';
 
 @Component({
   selector: 'app-view-rooms',
@@ -20,8 +21,10 @@ export class ViewRoomsComponent implements OnInit {
   ) { }
 
   id: string;
-  rooms: [];
+  rooms: Room[];
   hotelName: string;
+
+  freeRoomExists: boolean = false;
 
   loading: boolean;
 
@@ -40,6 +43,13 @@ export class ViewRoomsComponent implements OnInit {
           this.loading = false;
           this.rooms = data.rooms;
           this.hotelName = data.name;
+
+          for (let room of this.rooms) {
+            if (room.isFree) {
+              this.freeRoomExists = true;
+              break;
+            }
+          }
         }
       )
   }
