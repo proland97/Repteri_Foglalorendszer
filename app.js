@@ -28,7 +28,6 @@ const sessionStore = new MongoDBStore({
 var whitelist = 'http://localhost:4200';
 var corsOptions = {
     origin: function (origin, callback) {
-      //if (true) {
       if (origin.indexOf(whitelist) === 0) {
         callback(null, true)
       } else {
