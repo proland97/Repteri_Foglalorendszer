@@ -28,7 +28,10 @@ export class AdminStartpageComponent implements OnInit {
 
   uploadForm: FormGroup;
 
-  ngOnInit(): void { 
+  loading: boolean;
+
+  ngOnInit(): void {
+    this.loading = true;
     this.updateHotelList();
 
     this.uploadForm = this.formBuilder.group({
@@ -113,14 +116,19 @@ export class AdminStartpageComponent implements OnInit {
   }
 
   updateHotelList() {
-    this.hotelService.getHotels().pipe(first()).subscribe(
-      data => {
-        this.hotels = data;
-        for (let i = 0; i < this.hotels.length; i++) {
-          this.show.push(false);
+    this.hotelService.getHotels()
+      .pipe(
+        first()
+      )
+      .subscribe(
+        data => {
+          this.loading = false;
+          this.hotels = data;
+          for (let i = 0; i < this.hotels.length; i++) {
+            this.show.push(false);
+          }
         }
-      }
-    );
+      );
   }
 
 }

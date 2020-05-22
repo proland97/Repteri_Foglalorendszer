@@ -9,9 +9,7 @@ export class AdminGuardService implements CanActivateChild {
   constructor(private router: Router) { }
 
   canActivateChild(): boolean {
-    const role = localStorage.getItem('role');
-    console.log(role);
-    if (role === "admin") {
+    if (localStorage.getItem('role') === "admin") {
       return true;
     } else {
       this.router.navigate(['/welcomepage', {msg: 'not admin'}]);

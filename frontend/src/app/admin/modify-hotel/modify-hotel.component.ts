@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HotelService } from 'src/app/services/hotel/hotel.service';
 import { ActivatedRoute } from '@angular/router';
-import { first, catchError, tap } from 'rxjs/operators';
+import { first, catchError, tap, switchMap } from 'rxjs/operators';
 import { Room } from 'src/app/model/room.model';
 import { ReplaySubject, empty } from 'rxjs';
 
@@ -30,24 +30,31 @@ export class ModifyHotelComponent implements OnInit {
   msg$ = new ReplaySubject<string>();
   color: string = 'green';
 
+  loading: boolean;
+
   ngOnInit(): void {
-    this.route.params.pipe(first()).subscribe(
-      data => {
-        this.id = data.id;
-        this.hotelService.getHotelById(this.id).pipe(first()).subscribe(
-          data => {
-            this.name = data.name;
-            this.owner = data.owner;
-            this.numberOfRooms = data.rooms.length;
-            for (let i=0; i<this.numberOfRooms; i++) {
-              this.indices.push(Number(i));
-              this.show.push(true);
-            }
-            this.copyOfRooms = this.rooms = data.rooms;
+    this.loading = true;
+    this.route.params
+      .pipe(
+        switchMap(data => {
+          this.id = data.id;
+          return this.hotelService.getHotelById(this.id);
+        }),
+        first()
+      )
+      .subscribe(
+        data => {
+          this.loading = false;
+          this.name = data.name;
+          this.owner = data.owner;
+          this.numberOfRooms = data.rooms.length;
+          for (let i = 0; i < this.numberOfRooms; i++) {
+            this.indices.push(Number(i));
+            this.show.push(true);
           }
-        );
-      }
-    )
+          this.copyOfRooms = this.rooms = data.rooms;
+        }
+      )
   }
 
   private newRoom = () => ({
@@ -67,14 +74,14 @@ export class ModifyHotelComponent implements OnInit {
     this.rooms = [];
     this.show = [];
 
-    for (let i=0; i<number; i++) {
+    for (let i = 0; i < number; i++) {
       this.indices.push(Number(i));
-      this.rooms.push(i < this.copyOfRooms.length 
+      this.rooms.push(i < this.copyOfRooms.length
         ? this.newRoomWithParams(
-            this.copyOfRooms[i].roomNumber,
-            this.copyOfRooms[i].numberOfBeds,
-            this.copyOfRooms[i].isFree,
-          )
+          this.copyOfRooms[i].roomNumber,
+          this.copyOfRooms[i].numberOfBeds,
+          this.copyOfRooms[i].isFree,
+        )
         : this.newRoom());
       this.show.push(true);
     }
@@ -86,7 +93,6 @@ export class ModifyHotelComponent implements OnInit {
   }
 
   clickModify() {
-    console.log('modify');
     let freeRooms = 0;
     for (let room of this.rooms) {
       if (room.isFree) {

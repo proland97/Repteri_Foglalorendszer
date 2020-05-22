@@ -1,30 +1,36 @@
-<home-user class="menuitem"></home-user>
+<ng-container *ngIf="!loading; else loadingTemplate">
+    <home-user class="menuitem"></home-user>
 
-<div>
-    <label for="stars">How many stars would you like to give?</label>
-    <select id="stars" [(ngModel)]="star">
-        <option *ngFor="let o of options">
-            {{o.name}}
-         </option>
-    </select>
-    <button (click)="clickRate()">Rate</button>
-</div>
+    <div>
+        <label for="stars">How many stars would you like to give?</label>
+        <select id="stars" [(ngModel)]="star">
+            <option *ngFor="let o of options">
+                {{o.name}}
+            </option>
+        </select>
+        <button (click)="clickRate()">Rate</button>
+    </div>
 
-<table *ngIf="ratings?.length; else elseBlock">
-    <thead>
-        <tr>
-            <th>User</th>
-            <th>Rating</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let rating of ratings">
-            <td>{{ rating.user }}</td>
-            <td>{{ rating.stars }}</td>
-        </tr>
-    </tbody>
-</table>
+    <table *ngIf="ratings?.length; else noRatings">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rating of ratings">
+                <td>{{ rating.user }}</td>
+                <td>{{ rating.stars }}</td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
 
-<ng-template #elseBlock>
+<ng-template #noRatings>
     <p>There are no ratings yet.</p>
+</ng-template>
+
+<ng-template #loadingTemplate>
+    <p>Loading...</p>
 </ng-template>

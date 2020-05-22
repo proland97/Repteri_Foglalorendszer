@@ -15,13 +15,21 @@ export class MyReservationsComponent implements OnInit {
 
   reservations: [];
 
+  loading: boolean;
+
   ngOnInit(): void {
-    this.reservationService.getReservations().pipe(first()).subscribe(
-      data => {
-        this.reservations = data;
-        console.log(this.reservations);
-      }
-    );
+    this.loading = true;
+    this.reservationService.getReservations()
+      .pipe(
+        first()
+      )
+      .subscribe(
+        data => {
+          this.loading = false;
+          this.reservations = data;
+          console.log(this.reservations);
+        }
+      );
   }
 
 }

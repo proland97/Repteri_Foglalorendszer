@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { first, catchError, tap } from 'rxjs/operators';
+import { first, catchError, tap, switchMap } from 'rxjs/operators';
 import { HotelService } from 'src/app/services/hotel/hotel.service';
 import { empty } from 'rxjs';
 
@@ -29,18 +29,25 @@ export class ViewRatingsComponent implements OnInit {
   ];
   star: string;
 
+  loading: boolean;
+
   ngOnInit(): void {
-    this.route.params.pipe(first()).subscribe(
-      data => {
-        this.id = data.id;
-        this.hotelService.getHotelById(this.id).pipe(first()).subscribe(
-          data => {
-            this.ratings = data.ratings;
-            this.hotelName = data.name;
-          }
-        );
-      }
-    )
+    this.loading = true;
+    this.route.params
+      .pipe(
+        switchMap(data => {
+          this.id = data.id;
+          return this.hotelService.getHotelById(this.id);
+        }),
+        first()
+      )
+      .subscribe(
+        data => {
+          this.loading = false;
+          this.ratings = data.ratings;
+          this.hotelName = data.name;
+        }
+      )
   }
 
   clickRate() {

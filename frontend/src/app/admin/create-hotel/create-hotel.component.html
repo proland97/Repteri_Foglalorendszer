@@ -1,4 +1,5 @@
 <admin-home class="menuitem"></admin-home>
+
 <h1>Create new hotel</h1>
 <table>
     <tr>
@@ -27,14 +28,13 @@
         </dd>
     </tr>
     <tr *ngFor="let index of indices">
-        <input *ngIf="show[index]" type="number" placeholder="Room number" [(ngModel)]="rooms[index].roomNumber"
-            required>
-        <input *ngIf="show[index]" type="number" placeholder="Number of beds" [(ngModel)]="rooms[index].numberOfBeds"
-            required>
+        <input *ngIf="show[index]" type="number" placeholder="Room number" [(ngModel)]="rooms[index].roomNumber">
+        <input *ngIf="show[index]" type="number" placeholder="Number of beds" [(ngModel)]="rooms[index].numberOfBeds">
         <label *ngIf="show[index]" for="available">Available</label>
         <input *ngIf="show[index]" id="available" type="checkbox" [(ngModel)]="rooms[index].isFree">
         <button *ngIf="show[index]" (click)="clickSave(index)">Save</button>
     </tr>
     <button (click)="clickCreateHotel()">Create</button>
 </table>
+
 <p class="message" [style.background-color]="color" *ngIf="msg$ | async as message">{{ message }}</p>

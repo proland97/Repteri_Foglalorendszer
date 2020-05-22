@@ -20,7 +20,10 @@ export class PicturesComponent implements OnInit {
   images: [];
   message: string;
 
+  loading: boolean;
+
   ngOnInit(): void {
+    this.loading = true;
     this.route.params
       .pipe(
         first()
@@ -34,6 +37,7 @@ export class PicturesComponent implements OnInit {
             )
             .subscribe(
               data2 => {
+                this.loading = false;
                 if (data.id2) {
                   this.images = data2.rooms.filter(room => room._id === data.id2).flatMap(x => x.images);
                   this.message = 'for this room';

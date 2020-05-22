@@ -61,11 +61,15 @@ export class ViewRoomsComponent implements OnInit {
   }
 
   updateFreeRooms() {
-    this.hotelService.getHotelById(this.id).pipe(first()).subscribe(
-      data => {
-        this.rooms = data.rooms;
-      }
-    );
+    this.hotelService.getHotelById(this.id)
+      .pipe(
+        first()
+      )
+      .subscribe(
+        data => {
+          this.rooms = data.rooms;
+        }
+      );
   }
 
   viewPictures(id: string) {

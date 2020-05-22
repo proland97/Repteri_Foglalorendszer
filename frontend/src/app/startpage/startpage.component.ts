@@ -17,14 +17,20 @@ export class StartpageComponent implements OnInit {
 
   hotels: [];
 
+  loading: boolean;
+
   ngOnInit(): void {
-    this.hotelService.getHotels().pipe(first()).subscribe(
-      data => {
-        this.hotels = data;
-        console.log(data);
-        console.log(this.hotels.length);
-      }
-    );
+    this.loading = true;
+    this.hotelService.getHotels()
+      .pipe(
+        first()
+      )
+      .subscribe(
+        data => {
+          this.loading = false;
+          this.hotels = data;
+        }
+      );
   }
 
   clickViewRatings(id: string) {

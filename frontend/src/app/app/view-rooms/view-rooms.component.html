@@ -1,7 +1,7 @@
 <ng-container *ngIf="!loading; else loadingTemplate">
     <home-user class="menuitem"></home-user>
 
-    <table *ngIf="rooms?.length; else elseBlock">
+    <table *ngIf="rooms?.length; else noFreeRooms">
         <thead>
             <tr>
                 <th>Room number</th>
@@ -20,7 +20,7 @@
     </table>
 </ng-container>
 
-<ng-template #elseBlock>
+<ng-template #noFreeRooms>
     <p>There are no free rooms in this hotel currently.</p>
 </ng-template>
 
