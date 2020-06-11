@@ -1,4 +1,4 @@
-# Reptéri Foglalórendszer
+# Hotel Foglalórendszer
 Programrendszerek Fejlesztése projektmunka
 
 ## Backend:
